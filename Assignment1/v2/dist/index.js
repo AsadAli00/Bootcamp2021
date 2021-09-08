@@ -11,4 +11,6 @@ console.clear();
 console.log(`${collection.userName}'s Todo List`);
 let newId = collection.addTodo("Go for run");
 let todoItem = collection.getTodoById(newId);
-console.log(JSON.stringify(todoItem));
+todoItem.printDetails();
+//collection.addTodo(todoItem);
+collection.getTodoItems(true).forEach(item => item.printDetails());
