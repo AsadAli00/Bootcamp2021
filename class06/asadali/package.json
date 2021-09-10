@@ -1,0 +1,14 @@
+{
+  "name": "@asadali1122/asadali",
+  "version": "1.0.1",
+  "description": "bootcamp 2021 urdu session",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Asad Ali",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^16.9.0"
+  }
+}
