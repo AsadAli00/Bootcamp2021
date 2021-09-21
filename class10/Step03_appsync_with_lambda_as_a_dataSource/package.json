@@ -1,0 +1,29 @@
+{
+  "name": "step03_appsync_with_lambda_as_a_data_source",
+  "version": "0.1.0",
+  "bin": {
+    "step03_appsync_with_lambda_as_a_data_source": "bin/step03_appsync_with_lambda_as_a_data_source.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.122.0",
+    "@types/jest": "^26.0.10",
+    "@types/node": "10.17.27",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.2.0",
+    "aws-cdk": "1.122.0",
+    "ts-node": "^9.0.0",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-appsync": "^1.123.0",
+    "@aws-cdk/core": "1.122.0",
+    "aws-lambda": "^1.0.6",
+    "source-map-support": "^0.5.16"
+  }
+}
