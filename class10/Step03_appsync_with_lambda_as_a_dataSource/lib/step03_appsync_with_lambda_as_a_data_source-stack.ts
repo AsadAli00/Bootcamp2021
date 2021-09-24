@@ -33,7 +33,7 @@ export class Step03AppsyncWithLambdaAsADataSourceStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_12_X,            ///set nodejs runtime environment
       code: lambda.Code.fromAsset("lambda"),          ///path for lambda function directory
       handler: 'index.handler',                       ///specfic fucntion in specific file
-      // timeout: cdk.Duration.seconds(10)               ///Time for function to break. limit upto 15 mins
+      // timeout: cdk.Duration.seconds(10)            ///Time for function to break. limit upto 15 mins
     })
 
     ////Set lambda as a datasource
