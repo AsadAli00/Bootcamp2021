@@ -1,7 +1,7 @@
 const express = require ('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
-const decipher = require('./decipher-envs');
+// const decipher = require('./decipher-envs');
 const bodyParser = require('body-parser');
 
 
@@ -17,10 +17,11 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-decipher.decrypted(process.env.DATABASE_URL).then(conx => {
+const URL = process.env.DATABASE_URL;
+// decipher.decrypted(process.env.DATABASE_URL).then(conx => {
     //Connect to database
     mongoose
-    .connect(conx)
+    .connect(URL)
     .then(() => {
         console.log("Connected to database");
     })
@@ -41,7 +42,7 @@ const ToDoSchema = mongoose.Schema({
 });
 
 
-const ToDo = mongoose.model("ToDo", ToDoSchema);
+const ToDo = mongoose.model("ToDO", ToDoSchema);
 
 
 app.get("/todo/:id", (req,res)=>{
@@ -66,5 +67,35 @@ app.get("/todos", (req,res)=>{
         res.send(err)
     })
 })
-
+app.post('/todo', (req, res) => {
+    ToDo.create(req.body)            
+        .then(todo =>{
+            res.send({status: true, ...todo});
+        }).catch(err=>{
+            res.send(err);
+        });
 });
+
+app.put('/todo', (req, res) => {
+    ToDo.updateOne({_id: req.body.id}, {$set: req.body})            
+        .then(successObj =>{
+            res.send({status: true});
+        }).catch(err=>{
+            res.send(err);
+        });
+});
+
+app.delete('/todo', (req, res) => {
+    ToDo.findOneAndRemove({_id: req.body.id})            
+        .then(successObj =>{
+            res.send({status: true});
+        }).catch(err=>{
+            res.send(err);
+        });
+});
+
+app.listen(port, ()=> {
+    console.log(`Example app listening at http://localhost:${port}`)
+})
+
+// });
