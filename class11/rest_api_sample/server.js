@@ -1,5 +1,5 @@
 const express = require ('express');
-require("dotenv").config();
+require('dotenv').config();
 const mongoose = require('mongoose');
 const decipher = require('./decipher-envs');
 const bodyParser = require('body-parser');
@@ -27,3 +27,44 @@ decipher.decrypted(process.env.DATABASE_URL).then(conx => {
     .catch((error) => {
         throw new Error(error);
     });
+
+
+const ToDoSchema = mongoose.Schema({
+    title:{
+        type: String,
+        require: true,
+    },
+    description: {
+        type: String,
+        require: true
+    }
+});
+
+
+const ToDo = mongoose.model("ToDo", ToDoSchema);
+
+
+app.get("/todo/:id", (req,res)=>{
+
+    ToDo.findById(req.params.id)
+    .lean()
+    .then(todo => {
+        res.send(todo);
+    })
+    .catch(err=>{
+        res.send(err)
+    })
+
+})
+
+app.get("/todos", (req,res)=>{
+    ToDo.find({})
+    .lean()
+    .then(todos =>{
+        res.send(todos)
+    }).catch(err=>{
+        res.send(err)
+    })
+})
+
+});
