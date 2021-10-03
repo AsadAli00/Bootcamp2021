@@ -9,15 +9,14 @@ import {
 } from "@aws-cdk/aws-apigateway";
 import { AttributeType, Table } from "@aws-cdk/aws-dynamodb";
 
-export class Class14Stack extends cdk.Stack {
+export class CdkRestApiStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-
     // The code that defines your stack goes here
     const dynamoTable = new Table(this, "books", {
       partitionKey: {
         name: "bookId",
-        type: AttributeType.STRING;
+        type: AttributeType.STRING,
       },
       tableName: "books"
     })
@@ -98,7 +97,7 @@ export class Class14Stack extends cdk.Stack {
 
     // Create an API Gateway resource for each of the CRUD operations
 
-    const api = new RestApi(this, "booksApi",{
+    const api = new RestApi(this, "booksApi", {
       restApiName: "Simple Books",
     })
 
@@ -112,14 +111,47 @@ export class Class14Stack extends cdk.Stack {
     singleItems.addMethod("GET", getOneIntegration);
     singleItems.addMethod("PATCH", updateOneIntegration);
     singleItems.addMethod("DELETE", deleteOneIntegration);
-    addCorsOptions(singleItem);
-
-
-    
-
-
-
-
+    addCorsOptions(singleItems);
   }
-
 }
+
+
+export function addCorsOptions(apiResource: IResource) {
+  apiResource.addMethod(
+    "OPTIONS",
+    new MockIntegration({
+      integrationResponses: [
+        {
+          statusCode: "200",
+          responseParameters: {
+            "method.response.header.Access-Control-Allow-Headers":
+              "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+            "method.response.header.Access-Control-Allow-Origin": "'*'",
+            "method.response.header.Access-Control-Allow-Credentials":
+              "'false'",
+            "method.response.header.Access-Control-Allow-Methods":
+              "'OPTIONS,GET,PUT,POST,DELETE'",
+          },
+        },
+      ],
+      passthroughBehavior: PassthroughBehavior.NEVER,
+      requestTemplates: {
+        "application/jsom": '{"statusCode" : 200}',
+      },
+    }),
+    {
+      methodResponses: [
+        {
+          statusCode: "200",
+          responseParameters: {
+            "method.response.header.Access-Control-Allow-Headers": true,
+            "method.response.header.Access-Control-Allow-Methods": true,
+            "method.response.header.Access-Control-Allow-Credentials": true,
+            "method.response.header.Access-Control-Allow-Origin": true,
+          },
+        },
+      ],
+    }
+  );
+}
+
