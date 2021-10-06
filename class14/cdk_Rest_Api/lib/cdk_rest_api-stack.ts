@@ -72,7 +72,7 @@ export class CdkRestApiStack extends cdk.Stack {
     const deleteOneLambda = new lambda.Function(this, "deleteBook", {
       runtime: lambda.Runtime.NODEJS_12_X,
       handler: "deleteBook.handler",
-      code: lambda.Code.fromAsset("lambda"),
+      code: lambda.Code.fromAsset("lambdas"),
       environment: {
         PRIMARY_KEY: "bookId",
         TABLE_NAME: dynamoTable.tableName,
