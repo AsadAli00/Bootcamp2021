@@ -1,5 +1,4 @@
 import * as AWS from 'aws-sdk';
-import { promises } from 'dns';
 import {v4 as uuidv4 } from 'uuid';
 
 const TABLE_NAME = process.env.TABLE_NAME || "";
