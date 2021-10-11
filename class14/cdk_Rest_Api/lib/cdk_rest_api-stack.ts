@@ -32,7 +32,7 @@ export class CdkRestApiStack extends cdk.Stack {
       code: lambda.Code.fromAsset("lambdas"),
       memorySize: 1024,
       environment: {
-        PRIMARY_KEY: "boodId",
+        PRIMARY_KEY: "bookId",
         TABLE_NAME: dynamoTable.tableName,
 
       }
@@ -53,7 +53,7 @@ export class CdkRestApiStack extends cdk.Stack {
       handler: "addBook.handler",
       code: lambda.Code.fromAsset("lambdas"),
       environment: {
-        PRIMATY_KEY: "booKId",
+        PRIMATY_KEY: "bookId",
         TABLE_NAME: dynamoTable.tableName,
       }
     })
