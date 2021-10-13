@@ -38,18 +38,18 @@ export class AwsGraphQlApiStack extends cdk.Stack {
     });
 
     lambdaDs.createResolver({
-      typeName: "Mutatation",
+      typeName: "Mutation",
       fieldName: "addTodo",
     });
 
     lambdaDs.createResolver({
-      typeName: "Muatation",
+      typeName: "Mutation",
       fieldName: "updateTodo",
 
     });
 
     lambdaDs.createResolver({
-      typeName: "Mutattion",
+      typeName: "Mutation",
       fieldName: "deleteTodo",
     });
 
